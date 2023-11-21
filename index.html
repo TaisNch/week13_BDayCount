@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Count Days Befor Birthday</title>
+  </head>
+  <body>
+    <head>
+      <h1>
+        Привет! Давай посчитаем сколько дней осталось до твоего дня рожения!
+      </h1>
+    </head>
+    <main>
+      <div>
+        Введи дату дня рождения в формате ДД-ММ-ГГГГ<input
+          type="date"
+          id="date" />
+        <button id="btn">Нажми на кнопку</button>
+        <p>Осталось подождать: <span id="result">Тут будет результат</span></p>
+      </div>
+    </main>
+    <script>
+      const result = document.querySelector("#result");
+      const curranteDate = new Date();
+      const dayOfBD = document.getElementById("date").value;
+      const btn = document.getElementById("btn");
+
+      function calculateBD(dayOfBD) {
+        const date = Date.parse(dayOfBD);
+        const diff = date - curranteDate;
+        const daysLeft = Math.floor(diff / (1000 * 60 * 60 * 24));
+        return daysLeft;
+      }
+
+      btn.addEventListener("click", function () {
+        const dayOfBDs = document.querySelector("#date").value;
+        const daysLeft = calculateBD(dayOfBDs);
+        if (dayOfBDs.value == " ") {
+          result.textContent = "Неправильно введена дата";
+        } else {
+          if (dayOfBDs.value <= 0) {
+            result.textContent = "Неправильно введена дата";
+          } else {
+            let dayname = "";
+            if (daysLeft > 4 && daysLeft < 21) dayname = " дней";
+            else if (daysLeft == 1) dayname = " день";
+            else if (daysLeft == 2 || daysLeft == 3 || daysLeft == 4)
+              dayname = " дня";
+            else dayname = " дней";
+            result.textContent = "Осталось всего " + daysLeft + dayname + "!";
+          }
+        }
+      });
+    </script>
+  </body>
+</html>
